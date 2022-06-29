@@ -62,9 +62,11 @@ router.get("/messages", async (req, res) => {
     const user = await User.findById(userId);
     user.isOnline = true;
     await user.save();
-    const messages = await Message.find({ roomOwner: roomId });
+    const messages = await Message.find({ roomOwner: roomId }).populate(
+      "userOwner"
+    );
 
-    return res.status(200).send({ messages });
+    return res.status(200).send({ data: { messages } });
   } catch (error) {
     return res.status(500).send();
   }

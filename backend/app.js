@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const Message = require("./models/message");
+const User = require("./models/user");
 
 const roomRoutes = require("./routes/room");
 
@@ -33,19 +34,25 @@ const socketIo = require("socket.io")(
 socketIo.on("connection", (socket) => {
   console.log("New client connected" + socket.id);
 
-  socket.emit("getId", socket.id);
-
   socket.on("clientMessage", async (data) => {
-    const { roomId, userId, message } = data;
-    const newMessage = new Message({
-      message,
-      roomOwner: roomId,
-      userOwner: userId,
-    });
-    await newMessage.save();
-    socketIo.emit(`serverMessageForRoom ${roomId}`, {
-      message: newMessage._doc,
-    });
+    try {
+      const { roomId, userId, message } = data;
+      const user = await User.findById(userId);
+      if (!user) {
+        throw new Error();
+      }
+      const newMessage = new Message({
+        message,
+        roomOwner: roomId,
+        userOwner: userId,
+      });
+      await newMessage.save();
+      socketIo.emit(`serverMessageForRoom ${roomId}`, {
+        message: { ...newMessage._doc, userOwner: user },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   socket.on("disconnect", () => {

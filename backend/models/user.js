@@ -12,6 +12,7 @@ const userShema = new Schema({
   roomOwner: {
     type: Schema.Types.ObjectId,
     required: true,
+    ref: "Room",
   },
 });
 

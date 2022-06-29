@@ -8,10 +8,12 @@ const messageShema = new Schema({
   userOwner: {
     type: Schema.Types.ObjectId,
     required: true,
+    ref: "User",
   },
   roomOwner: {
     type: Schema.Types.ObjectId,
     required: true,
+    ref: "Room",
   },
 });
 
