@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "pm2 start app.js"
+    "dev": "nodemon chatApp.js",
+    "start": "pm2 start chatApp.js"
   },
   "author": "Nam Huynh",
   "license": "ISC",
