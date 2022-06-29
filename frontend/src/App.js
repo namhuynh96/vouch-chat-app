@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+
+import Join from "./pages/Join/Join";
+import Chat from "./pages/Chat/Chat";
+
+import classes from "./App.module.css";
 
 function App() {
+  const [roomDetails, setRoomDetails] = useState(null);
+  const [showChat, setShowChat] = useState(false);
+
+  const _onJoin = (roomId, userId) => {
+    setRoomDetails({ roomId, userId });
+    setShowChat(true);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.app}>
+      {showChat ? (
+        <Chat roomDetails={roomDetails} onExit={() => setShowChat(false)} />
+      ) : (
+        <Join onJoin={_onJoin} />
+      )}
     </div>
   );
 }
