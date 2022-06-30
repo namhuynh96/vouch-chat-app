@@ -5,6 +5,7 @@ const express = require("express");
 const http = require("http");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 
 const Message = require("./models/message");
 const User = require("./models/user");
@@ -19,6 +20,8 @@ const isDevEnv = process.env.NODE_ENV === "dev";
 if (isDevEnv) {
   app.use(cors());
 }
+
+app.use(express.static(path.join("..", "frontend", "build")));
 
 app.use("/room", roomRoutes);
 
