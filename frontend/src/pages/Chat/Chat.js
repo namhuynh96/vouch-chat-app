@@ -9,7 +9,7 @@ import classes from "./Chat.module.css";
 const host = process.env.REACT_APP_BACKEND_URL;
 
 const Chat = ({ roomDetails, onExit }) => {
-  const { roomId, userId } = roomDetails;
+  const { roomId, userId, roomName } = roomDetails;
 
   const [messages, setMessages] = useState(null);
   const [messageInput, setMessageInput] = useState("");
@@ -91,7 +91,7 @@ const Chat = ({ roomDetails, onExit }) => {
         <button className={classes.exitBtn} onClick={_onExit}>
           Exit
         </button>
-        <div className={classes.roomName}>ROOMID</div>
+        <div className={classes.roomName}>{roomName}</div>
       </div>
 
       <div className={classes.messages}>

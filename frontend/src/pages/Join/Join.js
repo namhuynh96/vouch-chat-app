@@ -31,7 +31,9 @@ const Join = ({ onJoin }) => {
     setRoomNameInput((p) => ({ ...p, error: null }));
 
     sendRequest(`/room?roomName=${roomName}&username=${username}`, "POST")
-      .then((res) => onJoin(res.data.roomId, res.data.userId))
+      .then((res) =>
+        onJoin(res.data.roomId, res.data.userId, roomNameInput.value)
+      )
       .catch((e) => setServerErrorMessage(e.message));
   };
 

@@ -9,8 +9,8 @@ function App() {
   const [roomDetails, setRoomDetails] = useState(null);
   const [showChat, setShowChat] = useState(false);
 
-  const _onJoin = (roomId, userId) => {
-    setRoomDetails({ roomId, userId });
+  const _onJoin = (roomId, userId, roomName) => {
+    setRoomDetails({ roomId, userId, roomName });
     setShowChat(true);
   };
 
