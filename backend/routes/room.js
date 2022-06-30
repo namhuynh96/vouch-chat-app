@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
       const newUser = new User({
         username,
         isOnline: false,
-        roomOwner: newRoom._id,
+        roomOwner: room._id,
       });
 
       await newUser.save();
