@@ -40,7 +40,7 @@ const Chat = ({ roomDetails, onExit }) => {
     window.addEventListener("beforeunload", handleLogout);
 
     return () => {
-      socketRef.current.disconnect();
+      handleLogout();
       window.removeEventListener("beforeunload", handleLogout);
     };
   }, [roomId, userId, handleLogout, sendRequest]);
@@ -80,15 +80,10 @@ const Chat = ({ roomDetails, onExit }) => {
     );
   });
 
-  const _onExit = () => {
-    handleLogout();
-    onExit();
-  };
-
   return (
     <div className={classes.wrapper}>
       <div className={classes.header}>
-        <button className={classes.exitBtn} onClick={_onExit}>
+        <button className={classes.exitBtn} onClick={onExit}>
           Exit
         </button>
         <div className={classes.roomName}>{roomName}</div>
